@@ -37,20 +37,29 @@ public class ClosestMatch {
 		
 		/**
 		 * buckets:
-		 * {
-		 * 	[dim1, dim2, dim3, dim4, dim6]={[val1, val2, val3, val41, val62]=[Rule#1234567, Rule#1234569], [val1, val2, val3, val41, val61]=[Rule#1234568]}, 
-		 * 
-		 *  [dim1, dim2, dim3, dim4, dim6, dim7]={[val1, val2, val3, dim41, val61, val76]=[Rule#1234566], [val1, val2, val3, dim41, val61, val75]=[Rule#1234566], [val1, val2, val3, val41, val61, val71]=[Rule#1234565], [val1, val2, val3, val41, val61, val72]=[Rule#1234565], [val1, val2, val3, val41, val61, val73]=[Rule#1234565], [val1, val2, val3, dim41, val61, val74]=[Rule#1234566]}, 
-		 * 
-		 *  [dim1, dim2, dim3, dim4, dim5, dim6]={[val1, val2, val3, val42, val52, val61]=[Rule#1234564], [val1, val2, val3, val41, val51, val61]=[Rule#1234562], [val1, val2, val3, val42, val52, val62]=[Rule#1234563], [val1, val2, val3, val41, val51, val62]=[Rule#1234561]}
-		 * }
-		 * 
+		 * [dim1, dim2, dim3, dim4, dim6]
+		 *     [val1, val2, val3, val41, val62] -> [Rule#1234567]
+		 *     [val1, val2, val3, val42, val62] -> [Rule#1234569]
+		 *     [val1, val2, val3, val41, val61] -> [Rule#1234568]
+		 * [dim1, dim2, dim3, dim4, dim6, dim7]
+		 *     [val1, val2, val3, dim41, val61, val76] -> [Rule#1234566]
+		 *     [val1, val2, val3, dim41, val61, val75] -> [Rule#1234566]
+		 *     [val1, val2, val3, val41, val61, val71] -> [Rule#1234565]
+		 *     [val1, val2, val3, val41, val61, val72] -> [Rule#1234565]
+		 *     [val1, val2, val3, val41, val61, val73] -> [Rule#1234565]
+		 *     [val1, val2, val3, dim41, val61, val74] -> [Rule#1234566]
+		 * [dim1, dim2, dim3, dim4, dim5, dim6]
+		 *     [val1, val2, val3, val42, val52, val61] -> [Rule#1234564]
+		 *     [val1, val2, val3, val41, val51, val61] -> [Rule#1234562]
+		 *     [val1, val2, val3, val42, val52, val62] -> [Rule#1234563]
+		 *     [val1, val2, val3, val41, val51, val62] -> [Rule#1234561]
+		 *     
 		 * levels:
-		 * 
-		 * {
-		 *    6=[[dim1, dim2, dim3, dim4, dim6, dim7], [dim1, dim2, dim3, dim4, dim5, dim6]], 
-		 *    5=[[dim1, dim2, dim3, dim4, dim6]]}
-		 * }
+		 * 6
+		 *     [dim1, dim2, dim3, dim4, dim6, dim7]
+		 *     [dim1, dim2, dim3, dim4, dim5, dim6]
+		 * 5
+		 *     [dim1, dim2, dim3, dim4, dim6]
 		 * 
 		 */
 		private TreeMap<Integer, List<List<String>>> levels = new TreeMap<>(Comparator.reverseOrder());
@@ -67,8 +76,31 @@ public class ClosestMatch {
 			for (List<String> dims : buckets.keySet()) {
 				levels.computeIfAbsent(dims.size(), s -> new ArrayList<>()).add(dims);
 			}
+			System.out.println("Setup completed:");
+			printBuckets(buckets);
+			printLevels(levels);
 		}
-		
+
+		private static void printBuckets(Map<List<String>, Map<List<Object>, List<Rule>>> buckets) {
+			System.out.println("buckets:");
+		    for (Map.Entry<List<String>, Map<List<Object>, List<Rule>>> outer : buckets.entrySet()) {
+		        System.out.println(outer.getKey());
+		        for (Map.Entry<List<Object>, List<Rule>> inner : outer.getValue().entrySet()) {
+		            System.out.println("    " + inner.getKey() + " -> " + inner.getValue());
+		        }
+		    }
+		}
+
+		private static void printLevels(Map<Integer, List<List<String>>> levels) {
+			System.out.println("levels:");
+			for (Map.Entry<Integer, List<List<String>>> level : levels.entrySet()) {
+		        System.out.println(level.getKey());
+		        for (List<String> inner : level.getValue()) {
+		            System.out.println("    " + inner);
+		        }
+		    }
+		}
+
 		private void insert(Map<List<Object>, List<Rule>> bucket, List<String> dimensionKeys, Rule rule) {
 			List<List<Object>> tuples = new ArrayList<>();
 			tuples.add(new ArrayList<>());
@@ -181,7 +213,7 @@ public class ClosestMatch {
                 "dim6", "val62"), null));
         rules.add(rule("1234568", base, Map.of("dim4", "val41",
                 "dim6", "val61"), null));
-        rules.add(rule("1234569", base, Map.of("dim4", "val41",
+        rules.add(rule("1234569", base, Map.of("dim4", "val42",
                 "dim6", "val62"), null));
         
         Matcher matcher = new Matcher(rules);

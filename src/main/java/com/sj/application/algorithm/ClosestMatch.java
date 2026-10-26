@@ -76,9 +76,9 @@ public class ClosestMatch {
 			for (List<String> dims : buckets.keySet()) {
 				levels.computeIfAbsent(dims.size(), s -> new ArrayList<>()).add(dims);
 			}
-			System.out.println("Setup completed:");
 			printBuckets(buckets);
 			printLevels(levels);
+			System.out.println("Insertion completed.");
 		}
 
 		private static void printBuckets(Map<List<String>, Map<List<Object>, List<Rule>>> buckets) {

@@ -38,21 +38,21 @@ public class ClosestMatch {
 		/**
 		 * buckets:
 		 * [dim1, dim2, dim3, dim4, dim6]
-		 *     [val1, val2, val3, val41, val62] -> [Rule#1234567]
+		 *     [val1, val2, val3, val41, val62] -> [Rule#1234567] 
 		 *     [val1, val2, val3, val42, val62] -> [Rule#1234569]
 		 *     [val1, val2, val3, val41, val61] -> [Rule#1234568]
 		 * [dim1, dim2, dim3, dim4, dim6, dim7]
-		 *     [val1, val2, val3, dim41, val61, val76] -> [Rule#1234566]
-		 *     [val1, val2, val3, dim41, val61, val75] -> [Rule#1234566]
-		 *     [val1, val2, val3, val41, val61, val71] -> [Rule#1234565]
-		 *     [val1, val2, val3, val41, val61, val72] -> [Rule#1234565]
-		 *     [val1, val2, val3, val41, val61, val73] -> [Rule#1234565]
-		 *     [val1, val2, val3, dim41, val61, val74] -> [Rule#1234566]
+		 *     [val1, val2, val3, dim41, val61, val76], a -> [Rule#1234566]
+		 *     [val1, val2, val3, dim41, val61, val75], a  -> [Rule#1234566]
+		 *     [val1, val2, val3, val41, val61, val71], a -> [Rule#1234565]
+		 *     [val1, val2, val3, val41, val61, val72], a -> [Rule#1234565]
+		 *     [val1, val2, val3, val41, val61, val73], a -> [Rule#1234565]
+		 *     [val1, val2, val3, dim41, val61, val74], a -> [Rule#1234566]
 		 * [dim1, dim2, dim3, dim4, dim5, dim6]
-		 *     [val1, val2, val3, val42, val52, val61] -> [Rule#1234564]
-		 *     [val1, val2, val3, val41, val51, val61] -> [Rule#1234562]
-		 *     [val1, val2, val3, val42, val52, val62] -> [Rule#1234563]
-		 *     [val1, val2, val3, val41, val51, val62] -> [Rule#1234561]
+		 *     [val1, val2, val3, val42, val52, val61], b -> [Rule#1234564]
+		 *     [val1, val2, val3, val41, val51, val61], b -> [Rule#1234562]
+		 *     [val1, val2, val3, val42, val52, val62], b -> [Rule#1234563]
+		 *     [val1, val2, val3, val41, val51, val62], b -> [Rule#1234561]
 		 *     
 		 * levels:
 		 * 6
